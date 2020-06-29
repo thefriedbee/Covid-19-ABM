@@ -15,7 +15,7 @@
   ],
   "author": "Diyi Liu",
   "license": "ISC",
-  "homepage": "https://gatech.github.io/dliu328/Covid-19-ABM",
+  "homepage": "https://thefriedbee.github.io/Covid-19-ABM",
   "dependencies": {
     "bootstrap": "^4.5.0",
     "bootstrap-slider": "^11.0.2",

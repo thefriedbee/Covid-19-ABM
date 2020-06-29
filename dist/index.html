@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Covid-19 ABM Simulation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css" type="text/css">
+    <link rel="stylesheet" href="style1.css" type="text/css">
+    <!--<link rel="stylesheet" href="style.css" type="text/css">-->
+    
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js">
+    </script>
+</head>
+<body>
+    <!--<script src="script/main.js"></script>-->
+    <!--canvas generation
+    <svg width="960" height="500" id="canvas">
+    -->
+
+    <div class="container">
+        <div class="row">
+            <div id="controlMenu" class="col">
+                <!--<a id="startStop" href="javascript:StartStopGame()"></a>-->
+                <input type="button" id="playButton" value="Pause" class="btn btn-dark"></input>
+                <input type="button" id="resetButton" value="Reset" class="btn btn-danger"></input>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="canvas col-6" id="bigCanvas">
+            </div>
+            <div class="plot col-6">
+            </div>
+        </div>
+    </div>
+
+    <div class="sliders container">
+        <div class="row">
+            <!--simulation sliders-->
+            <!--geometry sliders: Initiate conditions-->
+            <div class="form-group col-sm">
+                <div class="row">
+                    <small class="text-light bg-dark text-left">Initialization Settings (click reset after value is changed): </small>
+                </div>
+                <form class="text-muted">
+                    <div class="row">
+                    <label><small class="text-muted">Initial number of communities: <span id="demo2"></span></small></label>
+                    </div>
+                    <div class="row">
+                    <small><span id="demo2_min"></span><input data-provide="slider" id="numCommunity" type="text" data-slider-id="Slider_2"
+                        data-slider-min="1" data-slider-max="12" data-slider-step="1" data-slider-value="8"><span id="demo2_max"></span></small>
+                    </div>
+                    
+                    <div class="row">
+                    <label><small class="text-muted">Initial number of suspectible agents per tile/community: <span id="demo3"></span></small></label>
+                    </div>
+                    <div class="row">
+                    <small><span id="demo3_min"></span><input data-provide="slider" id="numSAgent" type="text" data-slider-id="Slider_3"
+                    data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="50"><span id="demo3_max"></span></small>
+                    </div>
+                    
+                    <div class="row">
+                    <label><small class="text-muted">Initial number of infected communities: <span id="demo4"></span></small></label>
+                    </div>
+                    <div class="row">
+                    <small><span id="demo4_min"></span><input data-provide="slider" id="numICommunity" type="text" data-slider-id="Slider_4"
+                    data-slider-min="0" data-slider-max="3" data-slider-step="1" data-slider-value="1"><span id="demo4_max"></span></small>
+                    </div>
+
+                    <div class="row">
+                    <label><small class="text-muted">Initial number of infected agents in infected communities: <span id="demo5"></span></small></label>
+                    </div>
+                    <div class="row">
+                    <small><span id="demo5_min"></span><input data-provide="slider" id="numIAgent" type="text" data-slider-id="Slider_5"
+                        data-slider-min="0" data-slider-max="5" data-slider-step="1" data-slider-value="3"><span id="demo5_max"></span></small>
+                    </div>
+                    
+                </form>
+            </div>
+
+            <!--pandemic sliders: pandemic information-->
+            <div class="form-group col-sm">
+                <div class="row">
+                    <small class="text-light bg-dark text-left">Simulation Speed (real-time change not suggested): </small>
+                </div>
+                <form class="text-muted">
+                    <div class="row">
+                        <label><small class="text-muted">Simulation Days per second (exclude daily updation time): <span id="demo1"></span></small></label>
+                        </div>
+                        <div class="row">
+                        <small><span id="demo1_min"></span><input data-provide="slider" id="numDayPerSecond" type="text" data-slider-id="Slider_1"
+                            data-slider-min="1" data-slider-max="4" data-slider-step="1" data-slider-value="2"><span id="demo1_max"></span></small>
+                    </div>
+                </form>
+                <div class="row">
+                <small class="text-light bg-dark text-left">Disease Settings (support update in real-time): </small>
+                </div>
+                <form class="text-muted">
+                    <div class="row">
+                    <label><small class="text-muted">Infectious radius (# of pixels): <span id="demo6"></span></small></label>
+                    </div>
+                    <div class="row">
+                    <small><span id="demo6_min"></span><input data-provide="slider" id="infectRadius" type="text" data-slider-id="Slider_6"
+                        data-slider-min="5" data-slider-max="15" data-slider-step="1" data-slider-value="5"><span id="demo6_max"></span></small>
+                    </div>
+                    <div class="row">
+                    <label><small class="text-muted">Infected prob. (every exposed time): <span id="demo7"></span></small></label>
+                    </div>
+                    <div class="row">
+                    <small><span id="demo7_min"></span><input data-provide="slider" id="infectChance" type="text" data-slider-id="Slider_7"
+                        data-slider-min="0" data-slider-max="0.2" data-slider-step="0.02" data-slider-value="0.1"><span id="demo7_max"></span></small>
+                    </div>
+                    <div class="row">
+                    <label><small class="text-muted">Infectious days <span id="demo8"></span></small></label>
+                    </div>
+                    <div class="row">
+                    <small><span id="demo8_min"></span><input data-provide="slider" id="infectDays" type="text" data-slider-id="Slider_8"
+                        data-slider-min="5" data-slider-max="30" data-slider-step="1" data-slider-value="14"><span id="demo8_max"></span></small>
+                    </div>
+
+                </form>
+            </div>
+
+            <!--policy/behavior sliders: behavior settings (those can dynamically updated during simulation)-->
+            <div class="form-group col-sm">
+                <div class="row">
+                    <small class="text-light bg-dark text-left">Policy & Behavior Settings (support update in real-time): </small>
+                </div>
+                <form class="text-muted">
+                    <div class="form-check row">
+                        <input type="checkbox" class="form-check-input" id="checkQ">
+                        <label class="form-check-label" for="checkQ">
+                            <small class="text-primary">Check if apply quarantine</small></label>
+                    </div>
+                    <div class="row">
+                    <label><small class="text-muted">Number of days before quaranteed.<span id="demo9"></span></small></label>
+                    </div>
+                    <div class="row">
+                    <small> <span id="demo9_min"></span><input data-provide="slider" id="numDaysBeforeQuaranteed" type="text" data-slider-id="Slider_9"
+                        data-slider-min="1" data-slider-max="14" data-slider-step="1" data-slider-value="6"><span id="demo9_max"></span></small>
+                    </div>
+
+                    <div class="form-check row">
+                        <input type="checkbox" class="form-check-input" id="checkSD">
+                        <label class="form-check-label" for="checkSD">
+                            <small class="text-primary">Check if apply social distancing</small></label>
+                    </div>
+                    <div class="row">
+                        <label><small class="text-muted">Social distances parameter <span id="demo10"></span></small></label>
+                    </div>
+                    <div class="row">
+                    <small><span id="demo10_min"></span><input data-provide="slider" id="socialDistance" type="text" data-slider-id="Slider_10"
+                        data-slider-min="1" data-slider-max="10" data-slider-step="1" data-slider-value="5"><span id="demo10_max"></span></small>
+                    </div>
+
+                    <div class="form-check row">
+                        <input type="checkbox" class="form-check-input" id="checkT">
+                        <label class="form-check-label" for="checkT">
+                            <small class="text-primary">Check if stop/suspend cross community travelling</small></label>
+                    </div>
+                    <div class="row">
+                    <label><small class="text-muted">Agent traveling probabilities <span id="demo11"></span></small></label>
+                    </div>
+                    <div class="row">
+                    <small> <span id="demo11_min"></span><input data-provide="slider" id="travelProb" type="text" data-slider-id="Slider_11"
+                        data-slider-min="0" data-slider-max="0.2" data-slider-step="0.01" data-slider-value="0.02"><span id="demo11_max"></span></small>
+                    </div>
+
+                    <div class="form-check row">
+                        <input type="checkbox" class="form-check-input" id="checkLT" checked>
+                        <label class="form-check-label" for="checkLT">
+                            <small class="text-primary">Check if travel to POI for daily supply (e.g., grocery store):</small></label>
+                    </div>
+                    <div class="row">
+                        <label><small class="text-muted">local Traveling Probabilities <span id="demo12"></span></small></label>
+                    </div>
+                    <div class="row">
+                        <small> <span id="demo12_min"></span><input data-provide="slider" id="localTravelProb" type="text" data-slider-id="Slider_12"
+                            data-slider-min="0" data-slider-max="0.2" data-slider-step="0.01" data-slider-value="0.02"><span id="demo12_max"></span></small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="bundle.js"></script>
+</body>
+</html>

@@ -2,6 +2,8 @@ var d3 = require("d3");
 var $ = require('jquery');
 require('bootstrap-slider');
 
+
+
 // declare all gloabal variables in the front
 var IDs = ["numDayPerSecond",
     "numCommunity", "numSAgent", "numICommunity", "numIAgent",
@@ -762,6 +764,27 @@ function onReset(){
     timeControllers[0] = d3.interval(tickNormal, parseInt(dayLength/10), newStart+500);
     timeControllers[1] = d3.interval(tickDaily, parseInt(dayLength) + 500, newStart);
     startStopFlag = 0; // simulation is running when reset
+
+    // init d3 force (for social distancing)
+    var repelForce = d3.forceManyBody()
+                       .strength(-0.1 * sliders.numDayPerSecond.value * sliders.socialDistance.value)
+                       .distanceMax(20).distanceMin(10);
+    // sim will automatically started (call on inherently)
+    // target > min: this will let social distancing repelling run forever. (unless ordered)
+    var simulationSD = d3.forceSimulation(agents).alphaDecay(0.03).force("repelForce",repelForce).alphaMin(0.2).alphaTarget(0.8);
+    simulationSD.stop(); // need manually stop social distancing at first
+    // reinit force control
+    timeControllers[2]=simulationSD;
+    if (ifSocialDistancing){
+        timeControllers[2].restart();
+    } else {
+        // reset random motion for all agents
+        for (var i = 0; i < agents.length; i++){
+            // reset speed and angle after there is no social distancing
+            agents[i].resetMotion();
+        }
+    }
+
     document.querySelector('#playButton').value = 'Pause';
 }
 
@@ -819,6 +842,7 @@ function onInputSliders(){
 
     $('#checkSD').on('click', function() {
         ifSocialDistancing = $("#checkSD").is(":checked") ? 1 : 0;
+
         if ( ifSocialDistancing ) {
             console.log("restart social distancing force simulation");
             timeControllers[2].restart();
@@ -946,6 +970,18 @@ function initAgentObj(){
 }
 
 // Start running the program!
+$('.Chinese').hide();
+$('#lang_ch').on('click', function() {
+    console.log('change language to chinese');
+    $('.English').hide();
+    $('.Chinese').show();
+});
+$('#lang_en').on('click', function() {
+    console.log('change language to english');
+    $('.English').show();
+    $('.Chinese').hide();
+});
+
 onInputSliders(); // init control variables
 initCanvas();
 initAgentObj();

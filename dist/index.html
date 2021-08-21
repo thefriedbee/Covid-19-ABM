@@ -21,17 +21,21 @@
 
     <div class="container">
         <div class="row">
-            <div id="controlMenu" class="col">
+            <div id="controlMenu" class="col-9">
                 <!--<a id="startStop" href="javascript:StartStopGame()"></a>-->
                 <input type="button" id="playButton" value="Pause" class="btn btn-dark"></input>
                 <input type="button" id="resetButton" value="Reset" class="btn btn-danger"></input>
             </div>
+            <div class="col-3">
+                <a href="#" id='lang_en'>English</a> / 
+                <a href="#" id='lang_ch'>中文</a>
+            </div>
         </div>
 
         <div class="row">
-            <div class="canvas col-sm" id="bigCanvas">
+            <div class="canvas col-6" id="bigCanvas">
             </div>
-            <div class="plot col-sm">
+            <div class="plot col-6">
             </div>
         </div>
     </div>
@@ -42,11 +46,17 @@
             <!--geometry sliders: Initiate conditions-->
             <div class="form-group col-sm">
                 <div class="row">
-                    <small class="text-light bg-dark text-left">Initialization Settings (click reset after value is changed): </small>
+                    <small class="text-light bg-dark text-left" >
+                        <span lang='en' class='English'>Initialization: </span>
+                        <span lang='ch' class='Chinese'>初始化: </span>
+                    </small>
                 </div>
                 <form class="text-muted">
                     <div class="row">
-                    <label><small class="text-muted">Initial number of communities: <span id="demo2"></span></small></label>
+                    <label><small class="text-muted">
+                        <span lang='en' class='English'>Initial number of communities: </span>
+                        <span lang='ch' class='Chinese'>社区数量: </span>
+                        <span id="demo2"></span></small></label>
                     </div>
                     <div class="row">
                     <small><span id="demo2_min"></span><input data-provide="slider" id="numCommunity" type="text" data-slider-id="Slider_2"
@@ -54,7 +64,10 @@
                     </div>
                     
                     <div class="row">
-                    <label><small class="text-muted">Initial number of suspectible agents per tile/community: <span id="demo3"></span></small></label>
+                    <label><small class="text-muted">
+                        <span lang='en' class='English'>Initial number of suspectible agents per tile/community: </span>
+                        <span lang='ch' class='Chinese'>每个社区的易感人群数量: </span>
+                        <span id="demo3"></span></small></label>
                     </div>
                     <div class="row">
                     <small><span id="demo3_min"></span><input data-provide="slider" id="numSAgent" type="text" data-slider-id="Slider_3"
@@ -62,7 +75,10 @@
                     </div>
                     
                     <div class="row">
-                    <label><small class="text-muted">Initial number of infected communities: <span id="demo4"></span></small></label>
+                    <label><small class="text-muted">
+                        <span lang='en' class='English'>Initial number of infected communities: </span>
+                        <span lang='ch' class='Chinese'>初始时传播疫情的社区数量: </span>
+                        <span id="demo4"></span></small></label>
                     </div>
                     <div class="row">
                     <small><span id="demo4_min"></span><input data-provide="slider" id="numICommunity" type="text" data-slider-id="Slider_4"
@@ -70,7 +86,10 @@
                     </div>
 
                     <div class="row">
-                    <label><small class="text-muted">Initial number of infected agents in infected communities: <span id="demo5"></span></small></label>
+                    <label><small class="text-muted">
+                        <span lang='en' class='English'>Initial number of infected agents in infected communities: </span>
+                        <span lang='ch' class='Chinese'>初始时有疫情的社区的感染人数: </span>
+                        <span id="demo5"></span></small></label>
                     </div>
                     <div class="row">
                     <small><span id="demo5_min"></span><input data-provide="slider" id="numIAgent" type="text" data-slider-id="Slider_5"
@@ -83,11 +102,17 @@
             <!--pandemic sliders: pandemic information-->
             <div class="form-group col-sm">
                 <div class="row">
-                    <small class="text-light bg-dark text-left">Simulation Speed (real-time change not suggested): </small>
+                    <small class="text-light bg-dark text-left">
+                        <span lang='en' class='English'>Simulation Speed (real-time change not suggested): </span>
+                        <span lang='ch' class='Chinese'>仿真程序运行速度（不建议仿真中改变）: </span>
+                    </small>
                 </div>
                 <form class="text-muted">
                     <div class="row">
-                        <label><small class="text-muted">Simulation Days per second (exclude daily updation time): <span id="demo1"></span></small></label>
+                        <label><small class="text-muted">
+                            <span lang='en' class='English'>Simulation Days per second (exclude daily updation time): </span>
+                            <span lang='ch' class='Chinese'>每秒钟仿真天数（不包括每仿真一天的停顿）: </span>
+                            <span id="demo1"></span></small></label>
                         </div>
                         <div class="row">
                         <small><span id="demo1_min"></span><input data-provide="slider" id="numDayPerSecond" type="text" data-slider-id="Slider_1"
@@ -95,25 +120,37 @@
                     </div>
                 </form>
                 <div class="row">
-                <small class="text-light bg-dark text-left">Disease Settings (support update in real-time): </small>
+                <small class="text-light bg-dark text-left">
+                    <span lang='en' class='English'>Disease Settings (support update in real-time): </span>
+                    <span lang='ch' class='Chinese'>病毒属性设置（支持实时更新）: </span>
+                     </small>
                 </div>
                 <form class="text-muted">
                     <div class="row">
-                    <label><small class="text-muted">Infectious radius (# of pixels): <span id="demo6"></span></small></label>
+                    <label><small class="text-muted">
+                        <span lang='en' class='English'>Infectious radius (# of pixels): </span>
+                        <span lang='ch' class='Chinese'>病毒传染半径（单位：像素）: </span>
+                        <span id="demo6"></span></small></label>
                     </div>
                     <div class="row">
                     <small><span id="demo6_min"></span><input data-provide="slider" id="infectRadius" type="text" data-slider-id="Slider_6"
                         data-slider-min="5" data-slider-max="15" data-slider-step="1" data-slider-value="5"><span id="demo6_max"></span></small>
                     </div>
                     <div class="row">
-                    <label><small class="text-muted">Infected prob. (every exposed time): <span id="demo7"></span></small></label>
+                    <label><small class="text-muted">
+                        <span lang='en' class='English'>Infected prob. (every exposed time): </span>
+                        <span lang='ch' class='Chinese'>传染概率（每次易感人群接触患者）: </span>
+                        <span id="demo7"></span></small></label>
                     </div>
                     <div class="row">
                     <small><span id="demo7_min"></span><input data-provide="slider" id="infectChance" type="text" data-slider-id="Slider_7"
                         data-slider-min="0" data-slider-max="0.2" data-slider-step="0.02" data-slider-value="0.1"><span id="demo7_max"></span></small>
                     </div>
                     <div class="row">
-                    <label><small class="text-muted">Infectious days <span id="demo8"></span></small></label>
+                    <label><small class="text-muted">
+                        <span lang='en' class='English'>Infectious days: </span>
+                        <span lang='ch' class='Chinese'>患者患病时间（单位：天）: </span>
+                        <span id="demo8"></span></small></label>
                     </div>
                     <div class="row">
                     <small><span id="demo8_min"></span><input data-provide="slider" id="infectDays" type="text" data-slider-id="Slider_8"
@@ -126,16 +163,25 @@
             <!--policy/behavior sliders: behavior settings (those can dynamically updated during simulation)-->
             <div class="form-group col-sm">
                 <div class="row">
-                    <small class="text-light bg-dark text-left">Policy & Behavior Settings (support update in real-time): </small>
+                    <small class="text-light bg-dark text-left">
+                        <span lang='en' class='English'>Policy & Behavior Settings (support update in real-time): </span>
+                        <span lang='ch' class='Chinese'>政策与行为设置（支持实时更新）: </span>
+                    </small>
                 </div>
                 <form class="text-muted">
                     <div class="form-check row">
                         <input type="checkbox" class="form-check-input" id="checkQ">
                         <label class="form-check-label" for="checkQ">
-                            <small class="text-primary">Check if apply quarantine</small></label>
+                            <small class="text-primary">
+                                <span lang='en' class='English'>Check if apply quarantine</span>
+                                <span lang='ch' class='Chinese'>隔离发现的患者</span>
+                            </small></label>
                     </div>
                     <div class="row">
-                    <label><small class="text-muted">Number of days before quaranteed.<span id="demo9"></span></small></label>
+                    <label><small class="text-muted">
+                        <span lang='en' class='English'>Number of days before quaranteed: </span>
+                        <span lang='ch' class='Chinese'>多少天发现患者: </span>
+                        <span id="demo9"></span></small></label>
                     </div>
                     <div class="row">
                     <small> <span id="demo9_min"></span><input data-provide="slider" id="numDaysBeforeQuaranteed" type="text" data-slider-id="Slider_9"
@@ -145,10 +191,16 @@
                     <div class="form-check row">
                         <input type="checkbox" class="form-check-input" id="checkSD">
                         <label class="form-check-label" for="checkSD">
-                            <small class="text-primary">Check if apply social distancing</small></label>
+                            <small class="text-primary">
+                                <span lang='en' class='English'>Check if apply social distancing</span>
+                                <span lang='ch' class='Chinese'>封城/保持社交距离</span>
+                            </small></label>
                     </div>
                     <div class="row">
-                        <label><small class="text-muted">Social distances parameter <span id="demo10"></span></small></label>
+                        <label><small class="text-muted">
+                            <span lang='en' class='English'>Social distances parameter: </span>
+                            <span lang='ch' class='Chinese'>社交距离参数 (“粒子电荷量”): </span>
+                            <span id="demo10"></span></small></label>
                     </div>
                     <div class="row">
                     <small><span id="demo10_min"></span><input data-provide="slider" id="socialDistance" type="text" data-slider-id="Slider_10"
@@ -158,10 +210,16 @@
                     <div class="form-check row">
                         <input type="checkbox" class="form-check-input" id="checkT">
                         <label class="form-check-label" for="checkT">
-                            <small class="text-primary">Check if stop/suspend cross community travelling</small></label>
+                            <small class="text-primary">
+                                <span lang='en' class='English'>Check if stop/suspend cross community travelling</span>
+                                <span lang='ch' class='Chinese'>禁止跨社区旅行</span>
+                            </small></label>
                     </div>
                     <div class="row">
-                    <label><small class="text-muted">Agent traveling probabilities <span id="demo11"></span></small></label>
+                    <label><small class="text-muted">
+                        <span lang='en' class='English'>Agent traveling probabilities: </span>
+                        <span lang='ch' class='Chinese'>(每人)跨社区概率: </span>
+                        <span id="demo11"></span></small></label>
                     </div>
                     <div class="row">
                     <small> <span id="demo11_min"></span><input data-provide="slider" id="travelProb" type="text" data-slider-id="Slider_11"
@@ -171,10 +229,16 @@
                     <div class="form-check row">
                         <input type="checkbox" class="form-check-input" id="checkLT" checked>
                         <label class="form-check-label" for="checkLT">
-                            <small class="text-primary">Check if travel to POI for daily supply (e.g., grocery store):</small></label>
+                            <small class="text-primary">
+                                <span lang='en' class='English'>Check if travel to POI (e.g., restaurant): </span>
+                                <span lang='ch' class='Chinese'>旅行至热点地区POI(例如: 餐厅)</span>
+                            </small></label>
                     </div>
                     <div class="row">
-                        <label><small class="text-muted">local Traveling Probabilities <span id="demo12"></span></small></label>
+                        <label><small class="text-muted">
+                            <span lang='en' class='English'>Local Traveling Probabilities to POI: </span>
+                            <span lang='ch' class='Chinese'>每个人每小时旅行至POI的概率</span>
+                            <span id="demo12"></span></small></label>
                     </div>
                     <div class="row">
                         <small> <span id="demo12_min"></span><input data-provide="slider" id="localTravelProb" type="text" data-slider-id="Slider_12"

@@ -1,3 +1,5 @@
+Click [here](https://thefriedbee.github.io/Covid-19-ABM/) to play the simulation game
+
 # Epodemiology Agent-based Model Simulator
 The project aims to demonstrate the agent-based simulator used for modeling epidemiology. The basic idea of this simulator comes from a 3Blue1Brown video on modeling particles as agents to simuate spread of epidemic. [3Blue1Brown video](https://www.youtube.com/watch?time_continue=3&v=gxAaO2rsdIs&feature=emb_logo)
 

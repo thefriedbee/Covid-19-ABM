@@ -1,7 +1,9 @@
 
 Click [here](https://thefriedbee.github.io/Covid-19-ABM/) to play the simulation game
 
-![Running Covid-abm simulation](image/covid_abm_screenshot_en.jpg)
+<img src="image/covid_abm_screenshot_en.png"
+     alt="Running Covid-abm simulation"
+     style="float: left; margin-right: 10px;" />
 
 
 # Epodemiology Agent-based Model Simulator
